@@ -1,0 +1,131 @@
+\documentclass[12pt]{dlmuupcsrep}
+
+% 这部分内容是由于在 `example.tex` 中需要展示代码块而设置的，使用时需删除，否则
+% minted 的存在会导致编译文档需要制定额外的参数。
+% =============================================================================
+\usepackage{minted}
+% =============================================================================
+
+\addbibresource{references.bib}  % 指定参考文献文件名
+
+% 设置元数据
+% 这部分内容将会被用于构建文档的封面
+
+\course{形势与政策}
+\stuid{2220XXXXXX}
+\major{某某专业}
+\grade{20XX级}
+\class{X班}
+\author{你的名字}
+
+\title{大连海事大学思政课报告\LaTeX 模板}
+
+\begin{document}
+
+% 启用封面
+\maketitle
+\tableofcontents % 插入目录
+
+\section{模板介绍}
+
+dlmuupcsrep (Report Template for DLMU Ungraduate Students' Political Course)是为大连海事大学本科学生准备的思政课程报告模板，目的是为大家节约思政类课程报告的写作时间，毕竟很显然大家都不想在思政类课程报告写作上花时间。
+
+由本校马克思主义学院给出的原版形势与政策课程报告模板（Word 格式文件）在本项目\texttt{documents}目录下。原始模板文件当中没有提供格式工具，实际上，电子版报告也没有任何格式要求。
+
+对于封面页的样式，原始模板文件的排版方式十分随意散漫，导致元素在Word文档中存在很夸张的随机浮动。为了与原始文档尽可能保持一致，对于封面页上的各元素本模板的作者只好是拿着尺子量出位置来，再使用\LaTeX 命令一点点精细化调整之后才排版出来的。
+
+但是，对于原模板文件中全文等间距的下划线，到目前为止尚未找到一种完全合适的实现方式。实际上，原文档中全文等长度的下划线是在Word文件的每一行都添加超出页面长度的带下划线的空格后接换行符来实现的，这在更为正式的\LaTeX 中确实做不到。读者可以选择\uline{使用\texttt{\textbackslash uline}命令包裹全文}，或者直接无视这个问题的存在，因为当思政类课程的教师要求提交电子版而不是手写报告的时候他们一般不对格式作过多要求。
+
+\section{模板特性}
+
+\subsection{封面页}
+
+本模板支持使用\texttt{\textbackslash maketitle}自动设置封面页，使用如下的参数可以设置封面上的各元素填写的内容：
+
+\begin{minted}[frame=lines]{tex}
+\course{形势与政策}
+\stuid{2220XXXXXX}
+\major{某某专业}
+\grade{20XX级}
+\class{X班}
+\author{你的名字}
+\title{你的调研主题}
+\end{minted}
+
+其中，由于日期命令\texttt{\textbackslash date}不要求填写，处于兼容性考虑这个命令仍然可以使用，但是不会生效。
+
+\subsection{文档类继承}
+
+本文档类继承自\texttt{article}文档类，参数传递和标题和级别与之保持一致。
+
+\subsection{如何编译模板}
+
+\subsubsection{使用make命令编译文档}
+
+如果您习惯使用\texttt{make}命令，并且您的计算机上已经正确配置了GNU Make（譬如基于mingw环境，或者您在大一学习C语言的时候安装过GCC组件作为您的C语言编译器，或者您安装过Git for Windows），那么文档的编译规则已经在Makefile中正确定义。使用\texttt{make}命令能够即刻生成您的文档。
+
+\begin{itemize}
+    \item 如果您需要删除工作区目录下包含成品文档在内的所有生成文件，请使用\texttt{make clean}
+    \item 如果您只是需要删除所有的辅助文件，请使用\texttt{make clear}
+    \item \texttt{makefile}中定义的\texttt{make example}命令是用于构建您当前看到的这份示例文档的，通常情况下您不会使用到。
+\end{itemize}
+
+\subsubsection{使用\XeLaTeX 编译文档}
+
+文档没有复杂的引用格式，只需要经过两次\XeLaTeX 即可正确编译。
+
+\subsection{使用LaTexmk基于\XeLaTeX 构建文档}
+
+您也可以通过LaTexmk指定使用\XeLaTeX 规则编译文档，这只需要您在使用LaTexmk时指定\texttt{-xelatex}参数：
+
+\begin{minted}[frame=lines]{bash}
+latexmk -xelatex main.tex
+\end{minted}
+
+\subsection{与Markdown文件兼容}
+
+如果您使用基于Pandoc的写作方案，那么这套模板可以很容易与Markdown相互集成。以下一份是可供参考的Markdown YAML frontmatter设置，在使用前需要将\texttt{dlmuupcsrep.cls}置于与Markdown文件所在的同一工作区目录下：
+
+\begin{minted}[frame=lines]{yaml}
+documentclass: ./dlmuupcsrep
+title: 你的调研主题
+author: 你的名字
+header-includes:
+  - \course{形势与政策}
+  - \stuid{2220XXXXXX}
+  - \major{某某专业}
+  - \grade{20XX级}
+  - \class{X班}
+\end{minted}
+
+同时，在编译Markdown文档时需要额外指定一些参数：
+
+\begin{minted}[frame=lines]{bash}
+pandoc <文件名>.md --o <文件名>.pdf --pdf-engine=xelatex
+\end{minted}
+
+\section{写作示例}
+
+\subsection{调研背景}
+
+党的初心使命是党的性质宗旨、理想信念、奋斗目标的集中体现。为深刻理解党的初心和使命，充分我学习了党的十九届六中全会审议通过的《中共中央关于党的百年奋斗重大成就和历史经验的决议》。我的学习内容如下：
+
+\subsection{中共中央关于党的百年奋斗重大成就和历史经验的决议}
+
+中国共产党自一九二一年成立以来，始终把为中国人民谋幸福、为中华民族谋复兴作为自己的初心使命，始终坚持共产主义理想和社会主义信念，团结带领全国各族人民为争取民族独立、人民解放和实现国家富强、人民幸福而不懈奋斗，已经走过一百年光辉历程。
+
+一百年来，党领导人民浴血奋战、百折不挠，创造了新民主主义革命的伟大成就；自力更生、发愤图强，创造了社会主义革命和建设的伟大成就；解放思想、锐意进取，创造了改革开放和社会主义现代化建设的伟大成就；自信自强、守正创新，创造了新时代中国特色社会主义的伟大成就。党和人民百年奋斗，书写了中华民族几千年历史上最恢宏的史诗。
+
+总结党的百年奋斗重大成就和历史经验，是在建党百年历史条件下开启全面建设社会主义现代化国家新征程、在新时代坚持和发展中国特色社会主义的需要；是增强政治意识、大局意识、核心意识、看齐意识，坚定道路自信、理论自信、制度自信、文化自信，做到坚决维护习近平同志党中央的核心、全党的核心地位，坚决维护党中央权威和集中统一领导，确保全党步调一致向前进的需要；是推进党的自我革命、提高全党斗争本领和应对风险挑战能力、永葆党的生机活力、团结带领全国各族人民为实现中华民族伟大复兴的中国梦而继续奋斗的需要。全党要坚持唯物史观和正确党史观，从党的百年奋斗中看清楚过去我们为什么能够成功、弄明白未来我们怎样才能继续成功，从而更加坚定、更加自觉地践行初心使命，在新时代更好坚持和发展中国特色社会主义。
+
+一九四五年党的六届七中全会通过的《关于若干历史问题的决议》、一九八一年党的十一届六中全会通过的《关于建国以来党的若干历史问题的决议》，实事求是总结党的重大历史事件和重要经验教训，在重大历史关头统一了全党思想和行动，对推进党和人民事业发挥了重要引领作用，其基本论述和结论至今仍然适用。
+
+……
+
+\section{模板项目}
+
+\subsection{模板许可证}
+
+模板基于\href{https://www.latex-project.org/lppl/lppl-1-3c/}{The LaTeX project public license (LPPL), version 1.3c}发布。许可证具体的内容要求可点击链接查看，或翻阅工作区目录下的LICENDE.txt文件。禁止将本模板用于任何商业用途。
+
+\end{document}
