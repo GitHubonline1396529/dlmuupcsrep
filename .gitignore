@@ -7,7 +7,7 @@
 # License: The MIT License
 # 
 # Copyright (c) 2024 Githubonline1396529
-
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -31,3 +31,17 @@
 # ignore hidden files, for both POSIX and WIN32.
 .
 _
+
+# ignore LaTeX Auxiliary Files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.out
+*.run.xml
+*.toc
+*.log
+*.run.xml
+*.xdv
+*.fls
+*.fdb_latexmk
