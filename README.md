@@ -19,3 +19,5 @@ dlmuupcsrep (Report Template for DLMU Ungraduate Students' Political Course)是�
 模板基于 [The LaTeX project public license (LPPL), version 1.3c](https://www.latex-project.org/lppl/lppl-1-3c/)发布。许可证具体的内容要求可点击链接查看，或翻阅工作区目录下的 [LICENDE.txt](./LICENCE.txt) 文件。禁止将本模板用于任何商业用途。
 
 ## 模板排版效果展示
+
+![排版后生成的文档首页](./image/example.jpg)
